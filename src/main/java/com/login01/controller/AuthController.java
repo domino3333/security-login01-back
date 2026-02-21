@@ -23,11 +23,14 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest dto) {
 
+    	//"이 아이디랑 비밀번호가 진짜 맞는지 검증해줘"
+    	//라고 Spring Security에게 요청하는 코드.
+    	//여기서 dto로 받은 것을 객체로 만들어서 내부적으로 UserDetailsService 를 호출한다.
         Authentication authentication =
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
                                 dto.getUsername(),
-                                dto.getUserpw()
+                                dto.getPassword()
                         )
                 );
 

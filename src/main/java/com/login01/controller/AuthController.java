@@ -34,7 +34,8 @@ public class AuthController {
 			// 라고 Spring Security에게 요청하는 코드.
 			// 여기서 dto로 받은 것을 객체로 만들어서 내부적으로 UserDetailsService 를 호출한다.
 			// repository의 findbyemail로 db에 가서 조회해서 비밀번호를 비교해줌
-			// 성공하면 인증된 Authentication 객체 반환
+			// 성공하면 인증된 Authentication 객체 반환,
+			//반환되는 Authentication 객체 안에는 username, password, 권한(GrantedAuthority) 모두 들어 있음
 			// 실패하면 예외 발생 (BadCredentialsException)
 			Authentication authentication = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));

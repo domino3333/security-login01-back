@@ -22,10 +22,20 @@ public class MemberRepositoryTests {
 			Member member = Member.builder()
 					.email("user" + i + "@jjjj.com")
 					.password(passwordEncoder.encode("1234"))
-					.role("USER" + i)
+					.role("USER")
 					.build();
 			memberRepository.save(member);
 		}
 	}
+	
+	@Test
+	public void dd() {
+			Member member = Member.builder()
+					.email("admin1@jjjj.com")
+					.password(passwordEncoder.encode("1234"))
+					.role("ADMIN")
+					.build();
+			memberRepository.save(member);
+		}
 
 }

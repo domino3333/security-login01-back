@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.login01.security.LoginRequest;
+import com.login01.util.JwtProvider;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
 	private final AuthenticationManager authenticationManager;
-
+	private final JwtProvider jwtProvider;
+	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginRequest dto) {
 
@@ -36,7 +38,8 @@ public class AuthController {
 			// 실패하면 예외 발생 (BadCredentialsException)
 			Authentication authentication = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
-
+			
+			String token = jwtProvider.createToken(authentication);
 			return ResponseEntity.ok(Map.of("success", true, "message", "로그인 성공"));
 
 		} catch (AuthenticationException e) {

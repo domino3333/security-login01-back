@@ -41,8 +41,11 @@ public class AuthController {
 					.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
 			
 			String token = jwtProvider.createToken(authentication);
-			return ResponseEntity.ok(Map.of("success", true, "message", "로그인 성공"));
-
+			return ResponseEntity.ok(Map.of(
+		            "success", true,
+		            "message", "로그인 성공",
+		            "token", token
+		        ));
 		} catch (AuthenticationException e) {
 
 			// BadCredentialsException 포함
